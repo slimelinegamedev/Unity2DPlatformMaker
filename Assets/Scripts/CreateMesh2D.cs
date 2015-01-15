@@ -73,6 +73,8 @@ public class CreateMesh2D : MonoBehaviour {
 	
 	protected void Awake ()
 	{
+		orientationOptions = new OrientationOptions();
+		colliderOptions = new ColliderOptions();
 		if(GetComponent<MeshFilter>() == null ) _meshFilter = gameObject.AddComponent<MeshFilter>() as MeshFilter;
 		if(GetComponent<MeshRenderer>() == null ) _renderer = gameObject.AddComponent<MeshRenderer>();
 		
@@ -368,10 +370,11 @@ public class CreateMesh2D : MonoBehaviour {
 		_tris = new int[(( numOfTopVertices - 1) * 6)];
 		
 		_trisCounter = 0;
-		
+
 		// Get collider data
 		if(colliderOptions.isCollidable)
 		{
+			_colliderPoints = new Vector2[_verticeCount];
 			if(colliderOptions.colliderType.Equals(ColliderOptions.ColliderType.Polygon))
 			{
 				if(GetComponent<PolygonCollider2D>() == null) _polyCollider= gameObject.AddComponent<PolygonCollider2D>() as PolygonCollider2D;
@@ -391,6 +394,7 @@ public class CreateMesh2D : MonoBehaviour {
 [System.Serializable]
 public class OrientationOptions
 {
+	public OrientationOptions(){}
 	public enum Orientation{
 		FaceDown, FaceSide
 	}
@@ -400,6 +404,7 @@ public class OrientationOptions
 [System.Serializable]
 public class ColliderOptions
 {
+	public ColliderOptions(){}
 	public enum ColliderType
 	{
 		Polygon, Mesh3D

@@ -29,36 +29,39 @@ public class CreateMesh2DEditor : Editor {
 			DrawDefaultInspector();
 		
 		EditorGUILayout.Space();
-		if(createMesh.enabled)EditorGUILayout.HelpBox("Don't forget to save mesh and disable before building your game!",MessageType.Warning);
-		GUILayout.BeginHorizontal();
-		if(GUILayout.Button("Save Mesh"))
+		if(createMesh.enabled)
 		{
-			save();
-		}
-		GUI.color = Color.green;
-		if(GUILayout.Button("Save Mesh and Disable"))
-		{
-			save();
-			createMesh.enabled = false;
-		}
-		GUI.color = Color.white;
-		GUILayout.EndHorizontal();
-	
+			EditorGUILayout.HelpBox("Don't forget to save mesh and disable before building your game!",MessageType.Warning);
+			GUILayout.BeginHorizontal();
+			if(GUILayout.Button("Save Mesh"))
+			{
+				save();
+			}
+			GUI.color = Color.green;
+			if(GUILayout.Button("Save Mesh and Disable"))
+			{
+				save();
+				createMesh.enabled = false;
+			}
+			GUI.color = Color.white;
+			GUILayout.EndHorizontal();
 
-		if(!createMesh.EditingVertices)
-		{
-			if(GUILayout.Button("Edit Vertices"))
+			if(!createMesh.EditingVertices)
 			{
-				createMesh.EditingVertices = true;
+				if(GUILayout.Button("Edit Vertices"))
+				{
+					createMesh.EditingVertices = true;
+				}
+			}
+			else 
+			{
+				if(GUILayout.Button("Revert"))
+				{
+					createMesh.EditingVertices = false;
+				}
 			}
 		}
-		else 
-		{
-			if(GUILayout.Button("Revert"))
-			{
-				createMesh.EditingVertices = false;
-			}
-		}
+
 	}
 	void OnSceneGUI()
 	{
